@@ -35,6 +35,7 @@
 	IBOutlet NSDatePicker *dtpEditWorkPeriodEndTime;
 	
 	IBOutlet NSMenuItem *startMenuItem;
+	IBOutlet NSMenuItem *mainWindowMenuItem;
 	
 	NSToolbarItem *startstopToolbarItem;
 	
@@ -58,6 +59,7 @@
 - (IBAction)clickedChangeWorkPeriod:(id)sender;
 - (IBAction)clickedCountIdleTimeYes:(id)sender;
 - (IBAction)clickedCountIdleTimeNo:(id)sender;
+- (IBAction)clickedShowMainWindow:(id)sender;
 - (IBAction)actionExport:(id)sender;
 
 - (void) timerFunc: (NSTimer *) timer;

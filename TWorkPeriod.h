@@ -18,8 +18,6 @@
 - (void) setStartTime: (NSDate *) startTime;
 - (void) setEndTime: (NSDate *) endTime;
 
-- (void) updateTotalTime;
-
 - (int) totalTime;
 - (void) updateTotalTime;
 

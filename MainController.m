@@ -159,7 +159,7 @@
 	}
 	
 	_projects_lastTask = [[NSMutableDictionary alloc] initWithCapacity:[[document projects] count]];
-	
+
 	//NSNumber *numTotalTime = [defaults objectForKey: @"TotalTime"];
 	
 	/*NSZone *menuZone = [NSMenu menuZone];
@@ -212,7 +212,7 @@
 	[tempMenuItem setToolTip:kOpenGrowlPreferencesTooltip];*/
 
 
-	statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
+	statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
 	
 	[statusItem setTarget: self];
 	[statusItem setAction: @selector (clickedStartStopTimer:)];
@@ -283,6 +283,8 @@
 	if (timer != atimer) return;
 	
 	[_curWorkPeriod setEndTime: [NSDate date]];
+	int totalTime = [_curWorkPeriod totalTime];
+	[statusItem setTitle: [TimeIntervalFormatter secondsToString:totalTime]];
 	
 	// Redraw just the TotalTime columns so that editing doesn't get cancelled if the user
 	// is currently editing a different cell.
@@ -312,8 +314,10 @@
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-	if ([notification object] == mainWindow)
-		[NSApp terminate: self];
+	if ([notification object] == mainWindow) {
+		[mainWindow orderOut: self];
+		[mainWindowMenuItem setState: NSOffState];
+	}
 	if ([notification object] == panelEditWorkPeriod)
 		[NSApp stopModal];
 }
@@ -617,6 +621,12 @@
 	// assert timer != nil
 	[timer setFireDate: [NSDate dateWithTimeIntervalSinceNow: 1]];
 	[NSApp stopModal];
+}
+
+- (IBAction)clickedShowMainWindow:(id)sender
+{
+	[mainWindow orderFront: self];
+	[mainWindowMenuItem setState: NSOnState];
 }
 
 - (BOOL) validateUserInterfaceItem:(id)anItem
