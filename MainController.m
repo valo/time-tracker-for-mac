@@ -284,8 +284,13 @@
 	
 	[_curWorkPeriod setEndTime: [NSDate date]];
 	int totalTime = [_curWorkPeriod totalTime];
-	[statusItem setTitle: [TimeIntervalFormatter secondsToString:totalTime]];
-	
+    NSString *formattedTitle = [[NSString alloc] initWithString: [TimeIntervalFormatter secondsToString:totalTime]];
+//    NSAttributedString *statusTitle = [NSAttributedString initWithString: formattedTitle];
+    
+    [statusItem setTitle: formattedTitle];
+    
+    [formattedTitle release];
+    
 	// Redraw just the TotalTime columns so that editing doesn't get cancelled if the user
 	// is currently editing a different cell.
 	[tvProjects setNeedsDisplayInRect:[tvProjects rectOfColumn:[tvProjects columnWithIdentifier:@"TotalTime"]]];
